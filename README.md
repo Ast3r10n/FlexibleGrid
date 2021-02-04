@@ -1,3 +1,3 @@
 # FlexibleGrid
 
-A description of this package.
+Inspired by https://github.com/zntfdr/FiveStarsCodeSamples/tree/main/Flexible-SwiftUI.
