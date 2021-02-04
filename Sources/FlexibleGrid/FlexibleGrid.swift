@@ -1,5 +1,5 @@
 //
-//  FlexibleView.swift
+//  FlexibleGrid.swift
 //  
 //
 //  Created by Andrea Sacerdoti on 03/02/21.
@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-public struct FlexibleView<Data: Collection, Content: View>: View where Data.Element: Hashable {
-  @State var availableWidth: CGFloat
-  let data: Data
-  let spacing: CGFloat
-  let alignment: HorizontalAlignment
-  let content: (Data.Element) -> Content
-  @State var elementsSize: [Data.Element: CGSize] = [:]
+public struct FlexibleGrid<Data: Collection, Content: View>: View where Data.Element: Hashable {
+  @State private var availableWidth: CGFloat = 0
+  public let data: Data
+  public let spacing: CGFloat
+  public let alignment: HorizontalAlignment
+  public let content: (Data.Element) -> Content
+  @State public var elementsSize: [Data.Element: CGSize] = [:]
 
   public var body: some View {
     ZStack(alignment: Alignment(horizontal: alignment, vertical: .center)) {
@@ -37,6 +37,16 @@ public struct FlexibleView<Data: Collection, Content: View>: View where Data.Ele
         }
       }
     }
+  }
+
+  public init(_ data: Data,
+              spacing: CGFloat = 8,
+              alignment: HorizontalAlignment = .leading,
+              @ViewBuilder _ content: @escaping (Data.Element) -> Content) {
+    self.data = data
+    self.spacing = spacing
+    self.alignment = alignment
+    self.content = content
   }
 
   private func computeRows() -> [[Data.Element]] {
